@@ -47,6 +47,16 @@ async function main() {
       name: 'Bills'
     }
   });
+
+  await prisma.user.upsert({
+    where: { id: 1 },
+    update: { email: 'mprietopereira@gmail.com', name: 'Mario' },
+    create: {
+      id: 1,
+      email: 'mprietopereira@gmail.com',
+      name: 'Mario'
+    }
+  })
 }
 main()
   .then(async () => {
