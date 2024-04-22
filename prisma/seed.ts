@@ -56,7 +56,7 @@ async function main() {
       email: 'mprietopereira@gmail.com',
       name: 'Mario'
     }
-  })
+  });
 }
 main()
   .then(async () => {

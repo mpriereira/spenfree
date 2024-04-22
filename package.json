@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/seed.ts",
+    "prisma-push:local": "dotenv -e .env.local -- pnpx prisma db push",
+    "prisma-push": "dotenv -e .env.production -- pnpx prisma db push",
+    "prisma-seed:local": "dotenv -e .env.local -- ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/seed.ts",
+    "prisma-seed": "dotenv -e .env.production -- ts-node --compiler-options {\\\\\\\"module\\\\\\\":\\\\\\\"CommonJS\\\\\\\"} prisma/seed.ts",
     "vercel-build": "prisma generate && prisma migrate deploy && next build"
   },
   "dependencies": {
