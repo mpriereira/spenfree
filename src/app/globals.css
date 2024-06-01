@@ -1,5 +1,27 @@
 :root {
   --max-width: 1150px;
+  --bg-color: hsl(0, 0%, 98%);
+  --text-color: hsl(0, 0%, 10%);
+  --button-bg-color: hsl(0, 0%, 98%);
+  --button-color: hsl(0, 0%, 10%);
+  --button-hover-color: hsl(0, 0% ,92%);
+  --shadow-color: hsl(0, 0%, 80%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --max-width: 1150px;
+    --bg-color: hsl(0, 0%, 10%);
+    --text-color: hsl(0, 0% ,98%);
+    --button-bg-color: hsl(0, 0%, 10%);
+    --button-color: hsl(0, 0%, 98%);
+    --button-hover-color: hsl(0, 0% ,20%);
+    --shadow-color: hsl(0, 0%, 20%);
+  }
+
+  .icon {
+    filter: invert(1);
+  }
 }
 
 * {
@@ -10,6 +32,8 @@
 
 html,
 body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
   overflow-x: hidden;
 }
 
@@ -25,13 +49,14 @@ input, select {
 }
 
 button {
-  background: #fff;
+  background: var(--button-bg-color);
+  color: var(--button-color);
   border: 1px solid #666;
   border-radius: 5px;
   padding-block: 5px;
   cursor: pointer;
 
   &:hover {
-    background-color: #eee;
+    background-color: var(--button-hover-color);
   }
 }

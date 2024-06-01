@@ -2,7 +2,7 @@
     padding: 15px;
     border: 1px solid rgb(215 215 215 / .4);
     border-radius: 5px;
-    box-shadow: 2px 2px 5px 0 rgb(215 215 215 / .5);
+    box-shadow: 2px 2px 5px 0 var(--shadow-color);
     min-width: 300px;
 }
 

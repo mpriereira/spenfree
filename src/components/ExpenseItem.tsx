@@ -42,10 +42,10 @@ export const ExpenseItem = ({ expense }: { expense: Expense }) => {
         <time>{expense.date.toLocaleDateString()}</time>
         <div className={styles.actions}>
           <Link href={`/expenses/${expense.id}`}>
-            <Image src={PencilIcon} alt="Edit icon" className={styles.edit}/>
+            <Image src={PencilIcon} alt="Edit icon" className={`icon ${styles.edit}`} />
           </Link>
           <button onClick={() => confirmDeletion()}>
-            <Image src={TrashIcon} alt="Remove icon" className={styles.remove}/>
+            <Image src={TrashIcon} alt="Remove icon" className={`icon ${styles.remove}`} />
           </button>
         </div>
       </header>
