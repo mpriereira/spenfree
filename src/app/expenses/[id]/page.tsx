@@ -1,25 +1,57 @@
-import { redirect } from 'next/navigation';
-import prisma from '../../../../lib/prisma';
-import { ExpenseForm } from '@/components/ExpenseForm';
-import { getCategories } from '@/app/expenses/actions';
+'use client'
 
-export default async function Home({ params }: { params: { id: string } }) {
-  const categories = await getCategories();
+import { getExpense, saveExpense } from '@/app/expenses/actions'
+import { useEffect, useState } from 'react'
+import { Expense } from '@prisma/client'
+import { ExpenseFormModal } from '@/components/ExpenseFormModal'
+import { toast } from 'toaster-ts'
 
-  const expense = await prisma.expense.findUnique({
-    where: {
-      id: +params.id
+export default function Home({ params }: { params: { id: string } }) {
+  const [expense, setExpense] = useState<Expense>()
+
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
+  const openModal = () => {
+    setIsOpenModal(true)
+  }
+
+  const closeModal = () => {
+    setIsOpenModal(false)
+  }
+
+  useEffect(() => {
+    const fetchExpense = async () => {
+      const currentExpense = (await getExpense(+params.id)) ?? undefined
+
+      setExpense(currentExpense)
+      setIsOpenModal(true)
     }
-  }) ?? undefined;
+    fetchExpense()
+  }, [params.id])
 
-  if (!expense) {
-    redirect('/expenses');
+  const handleSave = async (formData: FormData) => {
+    toast.promise(saveExpense(formData, expense?.id), {
+      loading: 'Saving expense...',
+      success: () => {
+        setIsOpenModal(false)
+        return 'Expense saved'
+      },
+      error: (err) => {
+        console.error(err)
+        return 'Error saving expense'
+      },
+    })
   }
 
   return (
-    <details open>
-      <summary>Edit expense</summary>
-      <ExpenseForm expense={expense} categories={categories}/>
-    </details>
-  );
+    <>
+      <button onClick={openModal}>Create expense</button>
+      <ExpenseFormModal
+        isOpenModal={isOpenModal}
+        closeModal={closeModal}
+        expense={expense}
+        onSave={handleSave}
+      />
+    </>
+  )
 }

@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 async function main() {
   await prisma.category.upsert({
@@ -8,45 +8,45 @@ async function main() {
     update: { name: 'Sports' },
     create: {
       id: 1,
-      name: 'Sports'
-    }
-  });
+      name: 'Sports',
+    },
+  })
 
   await prisma.category.upsert({
     where: { id: 2 },
     update: { name: 'Food' },
     create: {
       id: 2,
-      name: 'Food'
-    }
-  });
+      name: 'Food',
+    },
+  })
 
   await prisma.category.upsert({
     where: { id: 3 },
     update: { name: 'Trips' },
     create: {
       id: 3,
-      name: 'Trips'
-    }
-  });
+      name: 'Trips',
+    },
+  })
 
   await prisma.category.upsert({
     where: { id: 4 },
     update: { name: 'Leisure' },
     create: {
       id: 4,
-      name: 'Leisure'
-    }
-  });
+      name: 'Leisure',
+    },
+  })
 
   await prisma.category.upsert({
     where: { id: 5 },
     update: { name: 'Bills' },
     create: {
       id: 5,
-      name: 'Bills'
-    }
-  });
+      name: 'Bills',
+    },
+  })
 
   await prisma.user.upsert({
     where: { id: 1 },
@@ -54,9 +54,9 @@ async function main() {
     create: {
       id: 1,
       email: 'mprietopereira@gmail.com',
-      name: 'Mario'
-    }
-  });
+      name: 'Mario',
+    },
+  })
 }
 main()
   .then(async () => {

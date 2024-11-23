@@ -14,6 +14,7 @@ Create a file named `.env.local` from the provided template `.env`.
 Set up your local environment variables, you will need a postgres database.
 
 Create one easily in a docker container by running:
+
 ```bash
 docker-compose up -d
 ```

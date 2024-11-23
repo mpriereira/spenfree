@@ -1,41 +1,43 @@
 .expense {
-    padding: 15px;
-    border: 1px solid rgb(215 215 215 / .4);
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px 0 var(--shadow-color);
-    min-width: 300px;
+  padding: 15px;
+  border: 1px solid rgb(215 215 215 / 0.4);
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px 0 var(--shadow-color);
+  min-width: 300px;
+  background-color: var(--card-bg-color);
 }
 
 .expense > header {
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .expense > header > time {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .expense > header > .actions {
-    display: flex;
-    gap: 3px
+  display: flex;
+  gap: 3px;
 }
 
 .expense > header > .actions > button {
-    border: none;
-    padding: 0;
+  border: none;
+  padding: 0;
 }
 
-.edit, .remove {
-    width: 20px;
-    height: 20px;
+.edit,
+.remove {
+  width: 20px;
+  height: 20px;
 }
 
 .expense > .body {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .amount {
-    color: #d83932;
+  color: #d83932;
 }

@@ -1,22 +1,18 @@
-import { ReactNode } from 'react';
-import { ExpenseItem } from '@/components/ExpenseItem';
-import { getUserExpenses } from '@/app/expenses/actions';
-import styles from "./page.module.css";
+import { ReactNode, Suspense } from 'react'
+import { ExpensesList } from '@/components/ExpensesList'
+import { Loader } from '@/components/Loader'
+import styles from './page.module.css'
 
-export default async function ExpensesLayout({ children }: { children: ReactNode }) {
-  const expenses = await getUserExpenses();
-
+export default function ExpensesLayout({ children }: { children: ReactNode }) {
   return (
     <main className={styles.main}>
       <h1 className={styles.title}>Spenfree</h1>
       <section className={styles.expenses}>
-        {expenses.map(expense =>
-          <ExpenseItem key={expense.id} expense={expense} />
-        )}
+        <Suspense fallback={<Loader />}>
+          <ExpensesList />
+        </Suspense>
       </section>
-      <section className={styles.footer}>
-        {children}
-      </section>
+      <section className={styles.footer}>{children}</section>
     </main>
-  );
+  )
 }

@@ -1,51 +1,71 @@
-"use client"
+'use client'
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Expense } from '@prisma/client';
-import { deleteExpense } from '@/app/expenses/actions';
-import PencilIcon from '../../public/pencil.svg';
-import TrashIcon from '../../public/trash.svg';
-import styles from './ExpenseItem.module.css';
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { Expense } from '@prisma/client'
+import { deleteExpense } from '@/app/expenses/actions'
+import { toast } from 'toaster-ts'
+import PencilIcon from '../../public/pencil.svg'
+import TrashIcon from '../../public/trash.svg'
+import styles from './ExpenseItem.module.css'
 
 export const ExpenseItem = ({ expense }: { expense: Expense }) => {
-
-  const router = useRouter();
+  const router = useRouter()
 
   const getCategoryColor = () => {
     switch (expense.categoryId) {
       case 1:
-        return '#0cc';
+        return '#0cc'
       case 2:
-        return '#c60';
+        return '#c60'
       case 3:
-        return '#f0f';
+        return '#f0f'
       case 4:
-        return '#0c0';
+        return '#0c0'
       case 5:
-        return '#00c';
+        return '#00c'
     }
   }
 
   const confirmDeletion = async () => {
     if (confirm('Are you sure that you want to delete this expense?')) {
-      deleteExpense(expense.id).then(
-        () => router.push('/expenses')
-      );
+      toast.promise(deleteExpense(expense.id), {
+        loading: 'Deleting expense...',
+        success: () => {
+          router.push('/expenses')
+          return 'Expense deleted'
+        },
+        error: (err) => {
+          console.error(err)
+          return 'Error deleting expense'
+        },
+      })
     }
   }
 
   return (
-    <article key={expense.id} className={styles.expense} style={{ borderLeft: `10px solid ${getCategoryColor()}` }}>
+    <article
+      key={expense.id}
+      className={styles.expense}
+      style={{ borderLeft: `10px solid ${getCategoryColor()}` }}
+    >
       <header>
         <time>{expense.date.toLocaleDateString()}</time>
         <div className={styles.actions}>
           <Link href={`/expenses/${expense.id}`}>
-            <Image src={PencilIcon} alt="Edit icon" className={`icon ${styles.edit}`} />
+            <Image
+              src={PencilIcon}
+              alt="Edit icon"
+              className={`icon ${styles.edit}`}
+            />
           </Link>
           <button onClick={() => confirmDeletion()}>
-            <Image src={TrashIcon} alt="Remove icon" className={`icon ${styles.remove}`} />
+            <Image
+              src={TrashIcon}
+              alt="Remove icon"
+              className={`icon ${styles.remove}`}
+            />
           </button>
         </div>
       </header>
