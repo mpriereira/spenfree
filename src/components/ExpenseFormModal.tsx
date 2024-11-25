@@ -1,34 +1,25 @@
-import { useEffect, useRef, useState } from 'react'
-import { Category, Expense } from '@prisma/client'
+'use client'
+
+import { useRef } from 'react'
+import { useRouter } from 'next/navigation'
 import { toast } from 'toaster-ts'
-import { getCategories } from '@/app/expenses/actions'
+import { saveExpense } from '@/app/expenses/actions'
+import { useCategories } from '@/hooks/useCategories'
+import { useSelectedExpense } from '@/hooks/useSelectedExpense'
 import { Modal } from '@/components/Modal'
 import styles from '@/components/ExpenseFormModal.module.css'
 
 type ExportFormModalProps = {
-  isOpenModal: boolean
-  closeModal: () => void
-  expense?: Expense
-  onSave: (formData: FormData) => Promise<void>
+  isOpen: boolean
+  close: () => void
 }
 
-export const ExpenseFormModal = ({
-  isOpenModal,
-  closeModal,
-  expense,
-  onSave,
-}: ExportFormModalProps) => {
+export const ExpenseFormModal = ({ isOpen, close }: ExportFormModalProps) => {
   const formRef = useRef<HTMLFormElement>(null)
-  const [categories, setCategories] = useState<Category[]>([])
+  const router = useRouter()
+  const { categories } = useCategories()
+  const { selectedExpense: expense } = useSelectedExpense()
   const actionTitle = expense ? 'Edit expense' : 'Add expense'
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const categories = await getCategories()
-      setCategories(categories)
-    }
-    fetchCategories()
-  }, [])
 
   const getFormattedDate = () => {
     const date = expense?.date ?? new Date()
@@ -36,22 +27,32 @@ export const ExpenseFormModal = ({
   }
 
   const save = async (formData: FormData) => {
-    onSave(formData)
-      .then(() => {
+    toast.promise(saveExpense(formData, expense?.id), {
+      loading: 'Saving expense...',
+      success: () => {
         if (!expense) {
           formRef.current?.reset()
         }
-      })
-      .catch(() => {
-        toast.error('Error while saving the expense')
-      })
+        close()
+        return 'Expense saved'
+      },
+      error: (err) => {
+        console.error(err)
+        return 'Error while saving the expense'
+      },
+    })
+  }
+
+  const handleClose = () => {
+    close()
+    router.push('/expenses')
   }
 
   return (
     <Modal
       title={actionTitle}
-      isOpen={isOpenModal}
-      onClose={closeModal}
+      isOpen={isOpen}
+      onClose={close}
       hideFooter={true}
     >
       <form ref={formRef} action={save} className={styles.form}>
@@ -92,7 +93,7 @@ export const ExpenseFormModal = ({
         />
         <footer>
           <button type="submit">{actionTitle}</button>
-          <button onClick={closeModal}>Cancel</button>
+          <button onClick={handleClose}>Cancel</button>
         </footer>
       </form>
     </Modal>

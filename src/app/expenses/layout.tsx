@@ -12,7 +12,7 @@ export default function ExpensesLayout({ children }: { children: ReactNode }) {
           <ExpensesList />
         </Suspense>
       </section>
-      <section className={styles.footer}>{children}</section>
+      <section>{children}</section>
     </main>
   )
 }

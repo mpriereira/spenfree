@@ -15,12 +15,3 @@
   gap: 10px;
   margin-bottom: 32px;
 }
-
-.footer {
-  display: flex;
-  justify-content: center;
-}
-
-.footer > details > summary {
-  margin-bottom: 10px;
-}

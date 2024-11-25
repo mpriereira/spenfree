@@ -1,57 +1,26 @@
 'use client'
 
-import { getExpense, saveExpense } from '@/app/expenses/actions'
-import { useEffect, useState } from 'react'
-import { Expense } from '@prisma/client'
-import { ExpenseFormModal } from '@/components/ExpenseFormModal'
-import { toast } from 'toaster-ts'
+import { useEffect } from 'react'
+import { getExpense } from '@/app/expenses/actions'
+import { useExpenseModal } from '@/hooks/useExpenseModal'
+import { useSelectedExpense } from '@/hooks/useSelectedExpense'
 
 export default function Home({ params }: { params: { id: string } }) {
-  const [expense, setExpense] = useState<Expense>()
-
-  const [isOpenModal, setIsOpenModal] = useState(false)
-
-  const openModal = () => {
-    setIsOpenModal(true)
-  }
-
-  const closeModal = () => {
-    setIsOpenModal(false)
-  }
+  const { openModal } = useExpenseModal()
+  const { selectExpense } = useSelectedExpense()
 
   useEffect(() => {
     const fetchExpense = async () => {
-      const currentExpense = (await getExpense(+params.id)) ?? undefined
+      const expense = await getExpense(+params.id)
+      if (!expense) {
+        throw new Error('Expense not found')
+      }
 
-      setExpense(currentExpense)
-      setIsOpenModal(true)
+      selectExpense(expense)
+      openModal()
     }
     fetchExpense()
   }, [params.id])
 
-  const handleSave = async (formData: FormData) => {
-    toast.promise(saveExpense(formData, expense?.id), {
-      loading: 'Saving expense...',
-      success: () => {
-        setIsOpenModal(false)
-        return 'Expense saved'
-      },
-      error: (err) => {
-        console.error(err)
-        return 'Error saving expense'
-      },
-    })
-  }
-
-  return (
-    <>
-      <button onClick={openModal}>Create expense</button>
-      <ExpenseFormModal
-        isOpenModal={isOpenModal}
-        closeModal={closeModal}
-        expense={expense}
-        onSave={handleSave}
-      />
-    </>
-  )
+  return null
 }

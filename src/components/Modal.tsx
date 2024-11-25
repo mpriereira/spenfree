@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { createPortal } from 'react-dom'
 import styles from './Modal.module.css'
 
 type ModalProps = {
@@ -18,7 +19,7 @@ export const Modal = ({
 }: ModalProps) => {
   if (!isOpen) return null
 
-  return (
+  return createPortal(
     <div className={styles['modal-backdrop']}>
       <div className={styles.modal}>
         <section className={styles['modal-header']}>
@@ -32,6 +33,7 @@ export const Modal = ({
           </section>
         )}
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
