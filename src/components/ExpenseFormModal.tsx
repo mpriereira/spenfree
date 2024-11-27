@@ -1,6 +1,5 @@
 'use client'
 
-import { useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'toaster-ts'
 import { saveExpense } from '@/app/expenses/actions'
@@ -14,18 +13,15 @@ type ExportFormModalProps = {
 }
 
 export const ExpenseFormModal = ({ isOpen, close }: ExportFormModalProps) => {
-  const formRef = useRef<HTMLFormElement>(null)
   const router = useRouter()
-  const { selectedExpense: expense } = useSelectedExpense()
+  const { selectedExpense: expense, clearExpense } = useSelectedExpense()
 
   const handleSubmit = async (formData: FormData) => {
     toast.promise(saveExpense(formData, expense?.id), {
       loading: 'Saving expense...',
       success: () => {
-        if (!expense) {
-          formRef.current?.reset()
-        }
         close()
+        clearExpense()
         return 'Expense saved'
       },
       error: (err) => {
@@ -37,6 +33,7 @@ export const ExpenseFormModal = ({ isOpen, close }: ExportFormModalProps) => {
 
   const handleClose = () => {
     close()
+    clearExpense()
     router.push('/expenses')
   }
 
@@ -49,7 +46,6 @@ export const ExpenseFormModal = ({ isOpen, close }: ExportFormModalProps) => {
     >
       <ExpenseForm
         expense={expense}
-        ref={formRef}
         onSubmit={handleSubmit}
         onCancel={handleClose}
       />

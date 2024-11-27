@@ -1,21 +1,14 @@
 'use client'
 
 import { ExpenseFormModal } from '@/components/ExpenseFormModal'
-import { useExpenseModal } from '@/hooks/useExpenseModal'
-import { useSelectedExpense } from '@/hooks/useSelectedExpense'
+import { useModal } from '@/hooks/useModal'
 
 export const ExpensesListFooter = () => {
-  const { isOpenModal, openModal, closeModal } = useExpenseModal()
-  const { clearExpense } = useSelectedExpense()
-
-  const handleCreate = () => {
-    clearExpense()
-    openModal()
-  }
+  const { isOpenModal, openModal, closeModal } = useModal()
 
   return (
     <>
-      <button onClick={handleCreate}>Create expense</button>
+      <button onClick={openModal}>Create expense</button>
       <ExpenseFormModal isOpen={isOpenModal} close={closeModal} />
     </>
   )
