@@ -10,7 +10,9 @@ export const ExpensesList = async () => {
       {expenses.map((expense) => (
         <ExpenseItem key={expense.id} expense={expense} />
       ))}
-      <ExpensesListFooter />
+      <section style={{ marginTop: '15px' }}>
+        <ExpensesListFooter />
+      </section>
     </>
   )
 }
