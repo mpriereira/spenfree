@@ -20,8 +20,7 @@ export const ExpenseFormModal = ({ isOpen, close }: ExportFormModalProps) => {
     toast.promise(saveExpense(formData, expense?.id), {
       loading: 'Saving expense...',
       success: () => {
-        close()
-        clearExpense()
+        handleClose()
         return 'Expense saved'
       },
       error: (err) => {

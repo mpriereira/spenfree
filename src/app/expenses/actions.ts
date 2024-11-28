@@ -1,7 +1,6 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 import prisma from '@/lib/prisma'
 
 export async function getCategories() {
@@ -30,7 +29,7 @@ export async function getUserExpenses() {
 
 export async function saveExpense(formData: FormData, id?: number) {
   id
-    ? await editExpense(formData, id).then(() => redirect('/expenses'))
+    ? await editExpense(formData, id).then()
     : await createExpense(formData).then()
 }
 
