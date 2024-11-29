@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation'
 import { Expense } from '@prisma/client'
 import { deleteExpense } from '@/app/expenses/actions'
 import { toast } from 'toaster-ts'
-import PencilIcon from '../../public/pencil.svg'
-import TrashIcon from '../../public/trash.svg'
+import PencilIcon from '../../../public/pencil.svg'
+import TrashIcon from '../../../public/trash.svg'
 import styles from './ExpenseItem.module.css'
 
 export const ExpenseItem = ({ expense }: { expense: Expense }) => {

@@ -1,6 +1,6 @@
 import { getUserExpenses } from '@/app/expenses/actions'
-import { ExpenseItem } from '@/components/ExpenseItem'
-import { ExpensesListFooter } from '@/components/ExpensesListFooter'
+import { ExpenseItem } from '@/components/expenses/ExpenseItem'
+import { ExpensesListFooter } from '@/components/expenses/ExpensesListFooter'
 
 export const ExpensesList = async () => {
   const expenses = await getUserExpenses()

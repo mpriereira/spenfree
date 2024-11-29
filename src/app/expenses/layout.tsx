@@ -1,6 +1,6 @@
 import { ReactNode, Suspense } from 'react'
-import { ExpensesList } from '@/components/ExpensesList'
-import { Loader } from '@/components/Loader'
+import { ExpensesList } from '@/components/expenses/ExpensesList'
+import { Loader } from '@/components/lib/loader/Loader'
 import styles from './page.module.css'
 
 export default function ExpensesLayout({ children }: { children: ReactNode }) {

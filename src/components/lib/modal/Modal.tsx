@@ -6,7 +6,7 @@ type ModalProps = {
   children: ReactNode
   title: string
   isOpen: boolean
-  onClose: () => void
+  onClose?: () => void
   hideFooter?: boolean
 }
 

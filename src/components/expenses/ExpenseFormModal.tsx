@@ -4,15 +4,15 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'toaster-ts'
 import { saveExpense } from '@/app/expenses/actions'
 import { useSelectedExpense } from '@/hooks/useSelectedExpense'
-import { Modal } from '@/components/Modal'
-import { ExpenseForm } from '@/components/ExpenseForm'
+import { ExpenseForm } from '@/components/expenses/ExpenseForm'
+import { Modal } from '@/components/lib/modal/Modal'
 
 type ExportFormModalProps = {
   isOpen: boolean
-  close: () => void
+  onClose: () => void
 }
 
-export const ExpenseFormModal = ({ isOpen, close }: ExportFormModalProps) => {
+export const ExpenseFormModal = ({ isOpen, onClose }: ExportFormModalProps) => {
   const router = useRouter()
   const { selectedExpense: expense, clearExpense } = useSelectedExpense()
 
@@ -31,7 +31,7 @@ export const ExpenseFormModal = ({ isOpen, close }: ExportFormModalProps) => {
   }
 
   const handleClose = () => {
-    close()
+    onClose()
     clearExpense()
     router.push('/expenses')
   }
@@ -40,7 +40,6 @@ export const ExpenseFormModal = ({ isOpen, close }: ExportFormModalProps) => {
     <Modal
       title={expense ? 'Edit expense' : 'Add expense'}
       isOpen={isOpen}
-      onClose={close}
       hideFooter={true}
     >
       <ExpenseForm

@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { getExpense } from '@/app/expenses/actions'
 import { useModal } from '@/hooks/useModal'
 import { useSelectedExpense } from '@/hooks/useSelectedExpense'
-import { ExpenseFormModal } from '@/components/ExpenseFormModal'
+import { ExpenseFormModal } from '@/components/expenses/ExpenseFormModal'
 
 export default function Home({ params }: { params: { id: string } }) {
   const { isOpenModal, openModal, closeModal } = useModal()
@@ -23,5 +23,5 @@ export default function Home({ params }: { params: { id: string } }) {
     fetchExpense()
   }, [params.id])
 
-  return <ExpenseFormModal isOpen={isOpenModal} close={closeModal} />
+  return <ExpenseFormModal isOpen={isOpenModal} onClose={closeModal} />
 }
