@@ -1,20 +1,31 @@
 import { ReactNode, Suspense } from 'react'
 import { ExpensesChart } from '@/components/expenses/ExpensesChart'
 import { ExpensesList } from '@/components/expenses/ExpensesList'
-import { Loader } from '@/components/lib/loader/Loader'
+import { ExpenseSkeleton } from '@/components/lib/skeleton/ExpenseSkeleton'
+import { PieChartSkeleton } from '@/components/lib/skeleton/PieChartSkeleton'
 import styles from './page.module.css'
+
+const ExpensesListSkeleton = () => {
+  return (
+    <>
+      {Array.from({ length: 4 }).map((_, i) => (
+        <ExpenseSkeleton key={i} />
+      ))}
+    </>
+  )
+}
 
 export default function ExpensesLayout({ children }: { children: ReactNode }) {
   return (
     <main className={styles.main}>
       <section className={styles.content}>
         <div className={styles.list}>
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<ExpensesListSkeleton />}>
             <ExpensesList />
           </Suspense>
         </div>
         <div className={styles.chart}>
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<PieChartSkeleton />}>
             <ExpensesChart />
           </Suspense>
         </div>

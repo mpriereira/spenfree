@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { Cell, Pie, PieChart } from 'recharts'
-import { Loader } from '@/components/lib/loader/Loader'
 
 type LabelProps = {
   cx: number
@@ -51,7 +50,7 @@ export const Chart = ({ data }: ChartProps) => {
   }, [])
 
   if (!mounted) {
-    return <Loader />
+    return null
   }
 
   return (

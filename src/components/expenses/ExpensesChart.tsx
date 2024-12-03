@@ -1,6 +1,6 @@
 import { getUserExpenses } from '@/app/expenses/actions'
-import { Chart } from '@/components/lib/chart/Chart'
 import { getCategoryColor } from '@/app/utils'
+import { Chart } from '@/components/lib/chart/Chart'
 import styles from './ExpensesChart.module.css'
 
 export async function ExpensesChart() {
