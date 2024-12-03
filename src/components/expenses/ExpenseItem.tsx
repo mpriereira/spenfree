@@ -4,29 +4,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Expense } from '@prisma/client'
-import { deleteExpense } from '@/app/expenses/actions'
 import { toast } from 'toaster-ts'
+import { deleteExpense } from '@/app/expenses/actions'
+import { getCategoryColor } from '@/app/utils'
 import PencilIcon from '../../../public/pencil.svg'
 import TrashIcon from '../../../public/trash.svg'
 import styles from './ExpenseItem.module.css'
 
 export const ExpenseItem = ({ expense }: { expense: Expense }) => {
   const router = useRouter()
-
-  const getCategoryColor = () => {
-    switch (expense.categoryId) {
-      case 1:
-        return '#0cc'
-      case 2:
-        return '#c60'
-      case 3:
-        return '#f0f'
-      case 4:
-        return '#0c0'
-      case 5:
-        return '#00c'
-    }
-  }
 
   const confirmDeletion = async () => {
     if (confirm('Are you sure that you want to delete this expense?')) {
@@ -48,7 +34,9 @@ export const ExpenseItem = ({ expense }: { expense: Expense }) => {
     <article
       key={expense.id}
       className={styles.expense}
-      style={{ borderLeft: `10px solid ${getCategoryColor()}` }}
+      style={{
+        borderLeft: `10px solid ${getCategoryColor(expense.categoryId)}`,
+      }}
     >
       <header>
         <time>{expense.date.toLocaleDateString()}</time>
