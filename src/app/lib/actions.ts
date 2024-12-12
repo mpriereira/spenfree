@@ -23,6 +23,9 @@ export async function getUserExpenses() {
       user: {
         select: { name: true },
       },
+      category: {
+        select: { name: true },
+      },
     },
   })
 }

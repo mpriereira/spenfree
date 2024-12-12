@@ -1,27 +1,13 @@
-'use client'
+import { notFound } from 'next/navigation'
+import { getExpense } from '@/app/lib/actions'
+import { ExpenseFormModal } from '@/app/ui/expenses/ExpenseFormModal'
 
-import { useEffect } from 'react'
-import { getExpense } from '@/app/expenses/actions'
-import { useModal } from '@/hooks/useModal'
-import { useSelectedExpense } from '@/hooks/useSelectedExpense'
-import { ExpenseFormModal } from '@/components/expenses/ExpenseFormModal'
+export default async function Page({ params }: { params: { id: string } }) {
+  const expense = await getExpense(+params.id)
 
-export default function Home({ params }: { params: { id: string } }) {
-  const { isOpenModal, openModal, closeModal } = useModal()
-  const { selectExpense } = useSelectedExpense()
+  if (!expense) {
+    return notFound()
+  }
 
-  useEffect(() => {
-    const fetchExpense = async () => {
-      const expense = await getExpense(+params.id)
-      if (!expense) {
-        throw new Error('Expense not found')
-      }
-
-      selectExpense(expense)
-      openModal()
-    }
-    fetchExpense()
-  }, [params.id])
-
-  return <ExpenseFormModal isOpen={isOpenModal} onClose={closeModal} />
+  return <ExpenseFormModal expense={expense} />
 }

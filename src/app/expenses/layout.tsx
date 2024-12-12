@@ -1,8 +1,8 @@
 import { ReactNode, Suspense } from 'react'
-import { ExpensesChart } from '@/components/expenses/ExpensesChart'
-import { ExpensesList } from '@/components/expenses/ExpensesList'
-import { ExpenseSkeleton } from '@/components/lib/skeleton/ExpenseSkeleton'
-import { PieChartSkeleton } from '@/components/lib/skeleton/PieChartSkeleton'
+import { ExpensesChart } from '@/app/ui/expenses/ExpensesChart'
+import { ExpensesList } from '@/app/ui/expenses/ExpensesList'
+import { ExpenseSkeleton } from '@/app/ui/common/ExpenseSkeleton'
+import { PieChartSkeleton } from '@/app/ui/common/PieChartSkeleton'
 import styles from './page.module.css'
 
 const ExpensesListSkeleton = () => {

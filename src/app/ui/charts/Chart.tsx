@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Cell, Pie, PieChart } from 'recharts'
+import { Cell, Legend, Pie, PieChart, Tooltip } from 'recharts'
 
 type LabelProps = {
   cx: number
@@ -54,7 +54,7 @@ export const Chart = ({ data }: ChartProps) => {
   }
 
   return (
-    <PieChart width={200} height={200}>
+    <PieChart width={200} height={250}>
       <Pie
         data={data}
         cx={100}
@@ -69,6 +69,8 @@ export const Chart = ({ data }: ChartProps) => {
           <Cell key={`cell-${index}`} fill={item.color} />
         ))}
       </Pie>
+      <Legend iconSize={10} />
+      <Tooltip />
     </PieChart>
   )
 }

@@ -44,7 +44,7 @@ export default function RootLayout({
         <Footer />
         <section
           id="toaster-wrapper"
-          data-position="bottom-left"
+          data-position="bottom-right"
           data-rich-colors="true"
         />
       </body>

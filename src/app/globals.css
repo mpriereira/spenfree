@@ -58,19 +58,11 @@ select {
   padding: 6px;
   border: 1px solid #666;
   border-radius: 5px;
+  font: inherit;
 }
 
 button {
-  background: var(--button-bg-color);
-  color: var(--button-color);
-  border: 1px solid #666;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--button-hover-color);
-  }
+  font: inherit;
 }
 
 body > header {
