@@ -33,7 +33,7 @@ export const DeleteExpense = ({ expenseId }: { expenseId: number }) => {
         </div>
       </Modal>
 
-      <Button onClick={open} variant="outline">
+      <Button onClick={open} variant="light" radius="lg" color="red">
         <DeleteIcon />
       </Button>
     </>

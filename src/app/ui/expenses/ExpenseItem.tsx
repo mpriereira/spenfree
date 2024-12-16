@@ -26,7 +26,7 @@ export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
       <Table.Td>{expense.category.name}</Table.Td>
       <Table.Td className={styles.actions}>
         <Link href={`/expenses/${expense.id}`} passHref>
-          <Button variant="outline">
+          <Button variant="light" radius="lg">
             <PencilIcon />
           </Button>
         </Link>

@@ -10,3 +10,10 @@
   display: flex;
   gap: 5px;
 }
+
+.actions a,
+.actions button {
+  &:hover {
+    color: var(--mantine-color-gray-9);
+  }
+}
