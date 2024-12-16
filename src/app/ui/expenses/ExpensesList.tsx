@@ -10,7 +10,7 @@ type ExpensesListProps = {
   expenses: ExtendedExpense[]
 }
 
-export const ExpensesList = async ({ expenses }: ExpensesListProps) => {
+export const ExpensesList = ({ expenses }: ExpensesListProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.list}>

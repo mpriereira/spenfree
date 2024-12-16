@@ -65,7 +65,7 @@ export const ExpenseForm = ({ expense, categories }: ExpenseFormProps) => {
         defaultValue={expense?.amount}
       />
       <div className={styles.form__footer}>
-        <Button>Confirm</Button>
+        <Button type="submit">Confirm</Button>
       </div>
     </form>
   )
