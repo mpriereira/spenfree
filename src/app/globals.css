@@ -11,6 +11,7 @@
   --button-color: hsl(0, 0%, 10%);
   --button-hover-color: hsl(0, 0%, 92%);
   --shadow-color: hsl(0, 0%, 80%);
+  --amount-color: hsl(0.01, 68%, 52%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,6 +24,7 @@
     --button-color: hsl(0, 0%, 98%);
     --button-hover-color: hsl(0, 0%, 20%);
     --shadow-color: hsl(0, 0%, 20%);
+    --amount-color: hsl(0.01, 68%, 52%);
   }
 
   .icon {
@@ -54,7 +56,7 @@ body {
 body > header {
   display: flex;
   justify-content: center;
-  padding: 12px 20px;
+  padding-block: 10px;
   background-color: var(--card-bg-color);
   border-radius: 5px;
   box-shadow: 0 0 10px var(--shadow-color);
@@ -64,7 +66,7 @@ body > header {
 }
 
 body > footer {
-  padding: 20px;
+  padding-block: 10px;
   text-align: center;
   background-color: var(--card-bg-color);
   border-radius: 5px;
@@ -86,9 +88,9 @@ select {
   padding: 6px;
   border: 1px solid #666;
   border-radius: 5px;
-  font: inherit;
 }
 
-button {
+button, a, input, select {
   font: inherit;
+  font-size: .85rem;
 }

@@ -1,37 +1,17 @@
-.expense {
-  padding: 15px;
-  border: 1px solid rgb(215 215 215 / 0.4);
-  border-radius: 5px;
-  box-shadow: 2px 2px 5px 0 var(--shadow-color);
-  min-width: 300px;
-  background-color: var(--card-bg-color);
-}
-
-.expense > header {
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.expense > header > time {
+.date {
   font-weight: 500;
 }
 
-.expense > header > .actions {
+.amount {
+  color: var(--amount-color);
+}
+
+.actions {
   display: flex;
-  gap: 3px;
+  gap: 5px;
 }
 
 .actions a, .actions button {
   height: fit-content;
   line-height: 16px;
-}
-
-.expense > .body {
-  display: flex;
-  justify-content: space-between;
-}
-
-.amount {
-  color: #d83932;
 }

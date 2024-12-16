@@ -23,7 +23,7 @@ const theme = createTheme({
 const Header = () => {
   return (
     <header>
-      <h1>Spenfree</h1>
+      <h2>Spenfree</h2>
     </header>
   )
 }
@@ -31,7 +31,7 @@ const Header = () => {
 const Footer = () => {
   return (
     <footer>
-      <p className={`${inter.className} antialiased`}>
+      <p className={`${inter.className}`}>
         © 2025 Spenfree. Made with ❤️ by{' '}
         <a href="https://github.com/mpriereira" target="_blank">
           Mario

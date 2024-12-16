@@ -8,6 +8,7 @@ type ChartProps = {
 export const CategoriesChart = ({ data }: ChartProps) => {
   return (
     <DonutChart
+      size={200}
       withLabelsLine
       labelsType="percent"
       withLabels
