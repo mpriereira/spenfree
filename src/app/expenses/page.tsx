@@ -1,12 +1,19 @@
-import { ExpenseFormModal } from '@/app/ui/expenses/ExpenseFormModal'
+import { getCategories } from '@/app/lib/actions'
+import { CreateExpense } from '@/app/ui/expenses/CreateExpense'
 
 export const dynamic = 'force-dynamic'
 
-export default function Page({
+export default async function Page({
   searchParams,
 }: {
   searchParams: { create: string }
 }) {
-  const create = searchParams.create === 'true'
-  return <>{create && <ExpenseFormModal />}</>
+  const categories = await getCategories()
+  return (
+    <>
+      {searchParams.create === 'true' && (
+        <CreateExpense categories={categories} />
+      )}
+    </>
+  )
 }

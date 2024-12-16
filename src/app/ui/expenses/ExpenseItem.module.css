@@ -22,15 +22,9 @@
   gap: 3px;
 }
 
-.expense > header > .actions > button {
-  border: none;
-  padding: 0;
-}
-
-.edit,
-.remove {
-  width: 20px;
-  height: 20px;
+.actions a, .actions button {
+  height: fit-content;
+  line-height: 16px;
 }
 
 .expense > .body {

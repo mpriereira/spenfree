@@ -1,13 +1,16 @@
 import { notFound } from 'next/navigation'
-import { getExpense } from '@/app/lib/actions'
-import { ExpenseFormModal } from '@/app/ui/expenses/ExpenseFormModal'
+import { getCategories, getExpense } from '@/app/lib/actions'
+import { UpdateExpense } from '@/app/ui/expenses/UpdateExpense'
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const expense = await getExpense(+params.id)
+  const [expense, categories] = await Promise.all([
+    getExpense(+params.id),
+    getCategories(),
+  ])
 
   if (!expense) {
     return notFound()
   }
 
-  return <ExpenseFormModal expense={expense} />
+  return <UpdateExpense categories={categories} expense={expense} />
 }

@@ -1,6 +1,6 @@
 import { Expense } from '@prisma/client'
 import { getCategoryColor } from '@/app/lib/utils'
-import { DeleteExpenseButton } from '@/app/ui/expenses/DeleteExpenseButton'
+import { DeleteExpense } from '@/app/ui/expenses/DeleteExpense'
 import { Button } from '@/app/ui/common/Button'
 import { PencilIcon } from '@/app/ui/common/Icons'
 import styles from './ExpenseItem.module.css'
@@ -18,7 +18,7 @@ export const ExpenseItem = ({ expense }: { expense: Expense }) => {
         <time>{expense.date.toLocaleDateString()}</time>
         <div className={styles.actions}>
           <Button icon={<PencilIcon />} href={`/expenses/${expense.id}`} />
-          <DeleteExpenseButton expenseId={expense.id} />
+          <DeleteExpense expenseId={expense.id} />
         </div>
       </header>
       <div className={styles.body}>

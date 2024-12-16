@@ -1,0 +1,40 @@
+'use client'
+
+import { useDisclosure } from '@mantine/hooks'
+import { Modal } from '@mantine/core'
+import { toast } from 'toaster-ts'
+import { deleteExpense } from '@/app/lib/actions'
+import { Button } from '@/app/ui/common/Button'
+import { DeleteIcon } from '@/app/ui/common/Icons'
+import styles from './DeleteExpense.module.css'
+
+export const DeleteExpense = ({ expenseId }: { expenseId: number }) => {
+  const [opened, { open, close }] = useDisclosure(false)
+
+  const handleDeletion = async () => {
+    toast.promise(deleteExpense(expenseId), {
+      loading: 'Deleting expense...',
+      success: () => 'Expense deleted',
+      error: (err) => {
+        console.error(err)
+        return 'Error deleting expense'
+      },
+    })
+  }
+
+  return (
+    <>
+      <Modal opened={opened} onClose={close} title="Delete expense">
+        <div className={styles.modal__content}>
+          <p>Are you sure that you want to delete this expense?</p>
+          <div className={styles.modal__footer}>
+            <Button text="Cancel" onClick={close} />
+            <Button text="Delete" onClick={handleDeletion} />
+          </div>
+        </div>
+      </Modal>
+
+      <Button icon={<DeleteIcon />} onClick={open} />
+    </>
+  )
+}

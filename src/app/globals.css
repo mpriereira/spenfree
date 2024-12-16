@@ -1,3 +1,5 @@
+@import '@mantine/core/styles.css';
+@import '@mantine/charts/styles.css';
 @import 'toaster-ts/dist/bundle.css';
 
 :root {
@@ -44,15 +46,39 @@ body {
 }
 
 body {
-  margin: 0 auto;
-  max-width: var(--max-width);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-main {
+body > header {
+  display: flex;
+  justify-content: center;
+  padding: 12px 20px;
+  background-color: var(--card-bg-color);
+  border-radius: 5px;
+  box-shadow: 0 0 10px var(--shadow-color);
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+}
+
+body > footer {
+  padding: 20px;
+  text-align: center;
+  background-color: var(--card-bg-color);
+  border-radius: 5px;
+  box-shadow: 0 0 10px var(--shadow-color);
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+}
+
+body > main {
   flex: 1;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
 }
 
 input,
@@ -65,21 +91,4 @@ select {
 
 button {
   font: inherit;
-}
-
-body > header {
-  display: flex;
-  justify-content: center;
-  padding: 12px 20px;
-  background-color: var(--card-bg-color);
-  border-radius: 5px;
-  box-shadow: 0 0 10px var(--shadow-color);
-}
-
-body > footer {
-  padding: 20px;
-  text-align: center;
-  background-color: var(--card-bg-color);
-  border-radius: 5px;
-  box-shadow: 0 0 10px var(--shadow-color);
 }

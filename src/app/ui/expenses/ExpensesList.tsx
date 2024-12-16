@@ -13,7 +13,7 @@ export const ExpensesList = async () => {
           <ExpenseItem key={expense.id} expense={expense} />
         ))}
       </div>
-      <Button text="Create expense" href="/?create=true" />
+      <Button text="Create expense" href={'/?create=true'} />
     </div>
   )
 }
