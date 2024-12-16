@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import { GeistSans } from 'geist/font/sans'
 import {
   ColorSchemeScript,
@@ -7,9 +6,9 @@ import {
   mantineHtmlProps,
   MantineProvider,
 } from '@mantine/core'
+import { Header } from '@/app/ui/common/Header'
+import { Footer } from '@/app/ui/common/Footer'
 import './globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Spenfree: Monitor your expenses',
@@ -33,27 +32,6 @@ const theme = createTheme({
     ],
   },
 })
-
-const Header = () => {
-  return (
-    <header>
-      <h2>Spenfree</h2>
-    </header>
-  )
-}
-
-const Footer = () => {
-  return (
-    <footer>
-      <p className={`${inter.className}`}>
-        © 2025 Spenfree. Made with ❤️ by{' '}
-        <a href="https://github.com/mpriereira" target="_blank">
-          Mario
-        </a>
-      </p>
-    </footer>
-  )
-}
 
 export default function RootLayout({
   children,
