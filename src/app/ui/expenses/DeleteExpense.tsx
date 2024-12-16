@@ -1,10 +1,9 @@
 'use client'
 
 import { useDisclosure } from '@mantine/hooks'
-import { Modal } from '@mantine/core'
+import { Button, Modal } from '@mantine/core'
 import { toast } from 'toaster-ts'
 import { deleteExpense } from '@/app/lib/actions'
-import { Button } from '@/app/ui/common/Button'
 import { DeleteIcon } from '@/app/ui/common/Icons'
 import styles from './DeleteExpense.module.css'
 
@@ -28,13 +27,15 @@ export const DeleteExpense = ({ expenseId }: { expenseId: number }) => {
         <div className={styles.modal__content}>
           <p>Are you sure that you want to delete this expense?</p>
           <div className={styles.modal__footer}>
-            <Button text="Cancel" onClick={close} />
-            <Button text="Delete" onClick={handleDeletion} />
+            <Button onClick={close}>Cancel</Button>
+            <Button onClick={handleDeletion}>Delete</Button>
           </div>
         </div>
       </Modal>
 
-      <Button icon={<DeleteIcon />} onClick={open} />
+      <Button onClick={open} variant="outline">
+        <DeleteIcon />
+      </Button>
     </>
   )
 }

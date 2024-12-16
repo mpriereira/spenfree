@@ -5,9 +5,9 @@ import { toast } from 'toaster-ts'
 import { Expense } from '@prisma/client'
 import { saveExpense } from '@/app/lib/actions'
 import { Category } from '@/app/lib/definitions'
-import { Button } from '@/app/ui/common/Button'
 import { ExpenseCategoriesSelector } from '@/app/ui/expenses/ExpenseCategoriesSelector'
 import styles from './ExpenseForm.module.css'
+import { Button } from '@mantine/core'
 
 type ExpenseFormProps = {
   expense?: Expense
@@ -65,7 +65,7 @@ export const ExpenseForm = ({ expense, categories }: ExpenseFormProps) => {
         defaultValue={expense?.amount}
       />
       <div className={styles.form__footer}>
-        <Button text="Confirm" type="submit" />
+        <Button>Confirm</Button>
       </div>
     </form>
   )

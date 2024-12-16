@@ -3,15 +3,10 @@
 }
 
 .amount {
-  color: var(--amount-color);
+  color: var(--mantine-color-red-7);
 }
 
 .actions {
   display: flex;
   gap: 5px;
-}
-
-.actions a, .actions button {
-  height: fit-content;
-  line-height: 16px;
 }

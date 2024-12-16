@@ -1,8 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { Button } from '@/app/ui/common/Button'
-import { Modal } from '@mantine/core'
+import { Button, Modal } from '@mantine/core'
 import { useDelayedDisclosure } from '@/app/lib/hooks'
 
 export const NotFoundExpense = () => {
@@ -16,7 +15,7 @@ export const NotFoundExpense = () => {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <p>The requested expense does not seem to exist.</p>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button text="Go back" onClick={close} />
+          <Button onClick={close}>Go back</Button>
         </div>
       </div>
     </Modal>
