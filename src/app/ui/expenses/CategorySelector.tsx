@@ -89,7 +89,7 @@ export const CategorySelector = ({
               category={{ name: selectedLabel, id: Number(value) }}
             />
           ) : (
-            <Input.Placeholder>Pick value</Input.Placeholder>
+            <Input.Placeholder>Select category</Input.Placeholder>
           )}
         </InputBase>
       </Combobox.Target>

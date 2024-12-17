@@ -41,10 +41,10 @@ async function createExpense(formData: FormData) {
     data: {
       title: formData.get('title') as string,
       date: new Date(formData.get('date') as string).toISOString(),
-      amount: +(formData.get('amount') as string),
+      amount: Number(formData.get('amount') as string),
       category: {
         connect: {
-          id: +(formData.get('category') as string),
+          id: Number(formData.get('category') as string),
         },
       },
       user: {
@@ -66,10 +66,10 @@ async function editExpense(formData: FormData, id: number) {
     data: {
       title: formData.get('title') as string,
       date: new Date(formData.get('date') as string).toISOString(),
-      amount: +(formData.get('amount') as string),
+      amount: Number(formData.get('amount') as string),
       category: {
         connect: {
-          id: +(formData.get('category') as string),
+          id: Number(formData.get('category') as string),
         },
       },
     },
