@@ -13,19 +13,32 @@ export const CategorySelector = ({
   defaultCategory,
   onChange,
 }: CategorySelectorProps) => {
+  const [search, setSearch] = useState('')
   const [value, setValue] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<Category[]>([])
 
   const combobox = useCombobox({
-    onDropdownClose: () => combobox.resetSelectedOption(),
+    onDropdownClose: () => {
+      combobox.resetSelectedOption()
+      combobox.focusTarget()
+      setSearch('')
+    },
+
+    onDropdownOpen: () => {
+      combobox.focusSearchInput()
+    },
   })
 
-  const options = data.map((category) => (
-    <Combobox.Option value={category.id.toString()} key={category.id}>
-      <CategoryIndicator category={category} />
-    </Combobox.Option>
-  ))
+  const options = data
+    .filter((category) =>
+      category.name.toLowerCase().includes(search.toLowerCase().trim()),
+    )
+    .map((category) => (
+      <Combobox.Option value={category.id.toString()} key={category.id}>
+        <CategoryIndicator category={category} />
+      </Combobox.Option>
+    ))
 
   const selectedLabel = useMemo(() => {
     if (!value) return ''
@@ -82,8 +95,19 @@ export const CategorySelector = ({
       </Combobox.Target>
 
       <Combobox.Dropdown>
+        <Combobox.Search
+          value={search}
+          onChange={(event) => setSearch(event.currentTarget.value)}
+          placeholder="Search categories"
+        />
         <Combobox.Options>
-          {loading ? <Combobox.Empty>Loading....</Combobox.Empty> : options}
+          {loading ? (
+            <Combobox.Empty>Loading....</Combobox.Empty>
+          ) : options.length > 0 ? (
+            options
+          ) : (
+            <Combobox.Empty>No categories found</Combobox.Empty>
+          )}
         </Combobox.Options>
       </Combobox.Dropdown>
     </Combobox>

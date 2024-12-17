@@ -14,7 +14,7 @@ export const ExpensesList = ({ expenses }: ExpensesListProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.list}>
-        <ScrollArea h={400}>
+        <ScrollArea h={650}>
           <Table
             striped
             highlightOnHover
