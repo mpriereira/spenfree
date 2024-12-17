@@ -3,7 +3,7 @@
 }
 
 .amount {
-  color: var(--mantine-color-red-7);
+  color: var(--red-color);
 }
 
 .actions {

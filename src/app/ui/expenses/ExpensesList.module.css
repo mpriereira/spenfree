@@ -10,3 +10,7 @@
   flex-direction: column;
   gap: 15px;
 }
+
+.tableHeader {
+  background-color: var(--bg-color);
+}

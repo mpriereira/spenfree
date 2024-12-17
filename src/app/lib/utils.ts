@@ -1,15 +1,15 @@
 export const getCategoryColor = (categoryId: number) => {
   switch (categoryId) {
     case 1:
-      return '#0cc'
+      return '#3993DD'
     case 2:
-      return '#c60'
+      return '#6A3E37'
     case 3:
-      return '#f0f'
+      return '#EE4266'
     case 4:
-      return '#0c0'
+      return '#0EAD69'
     case 5:
-      return '#00c'
+      return '#FFD23F'
     default:
       return '#ccc'
   }

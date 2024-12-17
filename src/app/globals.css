@@ -11,6 +11,7 @@
   --button-color: hsl(0, 0%, 10%);
   --button-hover-color: hsl(0, 0%, 92%);
   --shadow-color: hsl(0, 0%, 80%);
+  --red-color: hsl(357, 73%, 50%)
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,6 +24,7 @@
     --button-color: hsl(0, 0%, 98%);
     --button-hover-color: hsl(0, 0%, 20%);
     --shadow-color: hsl(0, 0%, 20%);
+    --red-color: hsl(357, 73%, 50%)
   }
 
   .icon {

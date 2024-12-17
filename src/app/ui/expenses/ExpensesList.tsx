@@ -18,15 +18,18 @@ export const ExpensesList = ({ expenses }: ExpensesListProps) => {
           <Table
             striped
             highlightOnHover
+            stickyHeader
+            withRowBorders={false}
             horizontalSpacing={'xl'}
             verticalSpacing={'lg'}
           >
-            <Table.Thead>
+            <Table.Thead className={styles.tableHeader}>
               <Table.Tr>
                 <Table.Th>Date</Table.Th>
                 <Table.Th>Title</Table.Th>
                 <Table.Th>Amount</Table.Th>
                 <Table.Th>Category</Table.Th>
+                <Table.Th></Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
@@ -38,7 +41,7 @@ export const ExpensesList = ({ expenses }: ExpensesListProps) => {
         </ScrollArea>
       </div>
       <Link href="/?create=true" passHref>
-        <Button>Create expense</Button>
+        <Button>Add expense</Button>
       </Link>
     </div>
   )

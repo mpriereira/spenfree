@@ -2,11 +2,10 @@
 
 import { Modal } from '@mantine/core'
 import { ExpenseForm } from '@/app/ui/expenses/ExpenseForm'
-import { Category } from '@/app/lib/definitions'
 import { useRouter } from 'next/navigation'
 import { useDelayedDisclosure } from '@/app/lib/hooks'
 
-export const CreateExpense = ({ categories }: { categories: Category[] }) => {
+export const CreateExpense = () => {
   const router = useRouter()
   const [opened, { close }] = useDelayedDisclosure(() =>
     router.push('/expenses'),
@@ -14,8 +13,8 @@ export const CreateExpense = ({ categories }: { categories: Category[] }) => {
 
   return (
     <>
-      <Modal opened={opened} onClose={close} title="Create expense">
-        <ExpenseForm categories={categories} />
+      <Modal opened={opened} onClose={close} title="Add expense">
+        <ExpenseForm />
       </Modal>
     </>
   )

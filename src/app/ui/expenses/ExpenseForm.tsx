@@ -1,22 +1,24 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { toast } from 'toaster-ts'
+import { Button } from '@mantine/core'
 import { Expense } from '@prisma/client'
 import { saveExpense } from '@/app/lib/actions'
-import { Category } from '@/app/lib/definitions'
-import { ExpenseCategoriesSelector } from '@/app/ui/expenses/ExpenseCategoriesSelector'
+import { CategorySelector } from '@/app/ui/expenses/CategorySelector'
 import styles from './ExpenseForm.module.css'
-import { Button } from '@mantine/core'
 
 type ExpenseFormProps = {
   expense?: Expense
-  categories: Category[]
 }
 
-export const ExpenseForm = ({ expense, categories }: ExpenseFormProps) => {
+export const ExpenseForm = ({ expense }: ExpenseFormProps) => {
   const router = useRouter()
-  const categoryId = expense?.categoryId.toString() ?? ''
+  const categoryId = expense?.categoryId.toString()
+  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
+    categoryId,
+  )
 
   const getFormattedDate = () => {
     const date = expense?.date ?? new Date()
@@ -24,6 +26,11 @@ export const ExpenseForm = ({ expense, categories }: ExpenseFormProps) => {
   }
 
   const handleSubmit = async (formData: FormData) => {
+    if (!selectedCategory) {
+      console.error('No category selected')
+      return
+    }
+    formData.set('category', selectedCategory)
     toast.promise(
       saveExpense(formData, expense?.id).then(() => router.push('/expenses')),
       {
@@ -39,9 +46,9 @@ export const ExpenseForm = ({ expense, categories }: ExpenseFormProps) => {
 
   return (
     <form action={handleSubmit} className={styles.form}>
-      <ExpenseCategoriesSelector
-        categories={categories}
-        defaultValue={categoryId}
+      <CategorySelector
+        defaultCategory={categoryId}
+        onChange={setSelectedCategory}
       />
       <input
         required
@@ -65,7 +72,7 @@ export const ExpenseForm = ({ expense, categories }: ExpenseFormProps) => {
         defaultValue={expense?.amount}
       />
       <div className={styles.form__footer}>
-        <Button type="submit">Confirm</Button>
+        <Button type="submit">Save</Button>
       </div>
     </form>
   )
