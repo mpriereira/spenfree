@@ -38,14 +38,9 @@ export const CategorySelector = ({
   }, [value, data])
 
   useEffect(() => {
-    if (data.length === 0 && !loading) {
+    if (!data.length && !loading) {
       setLoading(true)
-      const delayedGetCategories = () =>
-        new Promise((resolve) => setTimeout(resolve, 2000)).then(() => {
-          return getCategories()
-        })
-      // TODO: rollback this to getCategories()
-      delayedGetCategories().then((response) => {
+      getCategories().then((response) => {
         setData(response)
         setLoading(false)
         if (defaultCategory) {
@@ -61,7 +56,7 @@ export const CategorySelector = ({
     <Combobox
       store={combobox}
       withinPortal={false}
-      onOptionSubmit={(val, optionProps) => {
+      onOptionSubmit={(val) => {
         setValue(val)
         onChange(val)
         combobox.closeDropdown()
