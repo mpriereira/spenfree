@@ -17,9 +17,7 @@ export const ExpensesList = ({ expenses }: ExpensesListProps) => {
         <ScrollArea h={400}>
           <Table
             striped
-            highlightOnHover
             stickyHeader
-            withRowBorders={false}
             horizontalSpacing={'xl'}
             verticalSpacing={'lg'}
           >

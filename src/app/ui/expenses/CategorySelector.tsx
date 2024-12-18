@@ -6,11 +6,13 @@ import { CategoryIndicator } from '@/app/ui/expenses/CategoryIndicator'
 
 type CategorySelectorProps = {
   defaultCategory?: string
+  hasError?: boolean
   onChange: (categoryId: string) => void
 }
 
 export const CategorySelector = ({
   defaultCategory,
+  hasError,
   onChange,
 }: CategorySelectorProps) => {
   const [search, setSearch] = useState('')
@@ -47,6 +49,7 @@ export const CategorySelector = ({
     if (!matchingOption) {
       throw new Error('Error while looking for matching option')
     }
+
     return matchingOption.name
   }, [value, data])
 
@@ -77,6 +80,7 @@ export const CategorySelector = ({
     >
       <Combobox.Target>
         <InputBase
+          error={hasError ? 'Please select a category' : undefined}
           component="button"
           type="button"
           pointer
@@ -89,7 +93,7 @@ export const CategorySelector = ({
               category={{ name: selectedLabel, id: Number(value) }}
             />
           ) : (
-            <Input.Placeholder>Select category</Input.Placeholder>
+            <Input.Placeholder>Category</Input.Placeholder>
           )}
         </InputBase>
       </Combobox.Target>
@@ -98,7 +102,7 @@ export const CategorySelector = ({
         <Combobox.Search
           value={search}
           onChange={(event) => setSearch(event.currentTarget.value)}
-          placeholder="Search categories"
+          placeholder="Search"
         />
         <Combobox.Options>
           {loading ? (

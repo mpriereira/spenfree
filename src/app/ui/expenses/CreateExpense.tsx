@@ -7,9 +7,7 @@ import { useDelayedDisclosure } from '@/app/lib/hooks'
 
 export const CreateExpense = () => {
   const router = useRouter()
-  const [opened, { close }] = useDelayedDisclosure(() =>
-    router.push('/expenses'),
-  )
+  const [opened, { close }] = useDelayedDisclosure(() => router.back())
 
   return (
     <>

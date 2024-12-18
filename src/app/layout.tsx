@@ -11,7 +11,7 @@ import { Footer } from '@/app/ui/common/Footer'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Spenfree: Monitor your expenses',
+  title: 'Spenfree — Monitor your expenses',
   description: 'Keep track of your daily expenses easily',
 }
 

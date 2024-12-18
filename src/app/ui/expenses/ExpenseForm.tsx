@@ -16,18 +16,23 @@ type ExpenseFormProps = {
 export const ExpenseForm = ({ expense }: ExpenseFormProps) => {
   const router = useRouter()
   const categoryId = expense?.categoryId.toString()
-  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
-    categoryId,
-  )
+  const [selectedCategory, setSelectedCategory] = useState(categoryId)
+  const [hasCategoryError, setHasCategoryError] = useState(false)
 
   const getFormattedDate = () => {
     const date = expense?.date ?? new Date()
     return date.toISOString().split('T')[0]
   }
 
+  const handleCategoryChange = (categoryId: string) => {
+    setSelectedCategory(categoryId)
+    setHasCategoryError(false)
+  }
+
   const handleSubmit = async (formData: FormData) => {
     if (!selectedCategory) {
       console.error('No category selected')
+      setHasCategoryError(true)
       return
     }
     formData.set('category', selectedCategory)
@@ -48,7 +53,8 @@ export const ExpenseForm = ({ expense }: ExpenseFormProps) => {
     <form action={handleSubmit} className={styles.form}>
       <CategorySelector
         defaultCategory={categoryId}
-        onChange={setSelectedCategory}
+        hasError={hasCategoryError}
+        onChange={handleCategoryChange}
       />
       <input
         required
