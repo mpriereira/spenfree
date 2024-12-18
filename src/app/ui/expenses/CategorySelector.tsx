@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Combobox, Input, InputBase, Loader, useCombobox } from '@mantine/core'
+import { Category } from '@prisma/client'
 import { getCategories } from '@/app/lib/actions'
-import { Category } from '@/app/lib/definitions'
 import { CategoryIndicator } from '@/app/ui/expenses/CategoryIndicator'
 
 type CategorySelectorProps = {
@@ -38,19 +38,22 @@ export const CategorySelector = ({
     )
     .map((category) => (
       <Combobox.Option value={category.id.toString()} key={category.id}>
-        <CategoryIndicator category={category} />
+        <CategoryIndicator
+          categoryName={category.name}
+          categoryColor={category.color}
+        />
       </Combobox.Option>
     ))
 
-  const selectedLabel = useMemo(() => {
-    if (!value) return ''
+  const selectedCategory = useMemo(() => {
+    if (!value) return undefined
 
-    const matchingOption = data.find((item) => item.id === Number(value))
+    const matchingOption = data.find((item) => item.id === value)
     if (!matchingOption) {
       throw new Error('Error while looking for matching option')
     }
 
-    return matchingOption.name
+    return matchingOption
   }, [value, data])
 
   useEffect(() => {
@@ -90,7 +93,8 @@ export const CategorySelector = ({
         >
           {value ? (
             <CategoryIndicator
-              category={{ name: selectedLabel, id: Number(value) }}
+              categoryName={selectedCategory?.name}
+              categoryColor={selectedCategory?.color}
             />
           ) : (
             <Input.Placeholder>Category</Input.Placeholder>

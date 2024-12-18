@@ -1,61 +1,110 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, CategoryType } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
+const baseCategories = [
+  {
+    name: 'Sports',
+    type: CategoryType.EXPENSE,
+    color: '#3993DD',
+  },
+  {
+    name: 'Food',
+    type: CategoryType.EXPENSE,
+    color: '#6A3E37',
+  },
+  {
+    name: 'Trips',
+    type: CategoryType.EXPENSE,
+    color: '#EE4266',
+  },
+  {
+    name: 'Leisure',
+    type: CategoryType.EXPENSE,
+    color: '#0EAD69',
+  },
+  {
+    name: 'Bills',
+    type: CategoryType.EXPENSE,
+    color: '#FFD23F',
+  },
+  {
+    name: 'Salary',
+    type: CategoryType.INCOME,
+    color: '#9D79BC',
+  },
+  {
+    name: 'Extra income',
+    type: CategoryType.INCOME,
+    color: '#6EFAFB',
+  },
+]
+
 async function main() {
-  await prisma.category.upsert({
-    where: { id: 1 },
-    update: { name: 'Sports' },
-    create: {
-      id: 1,
-      name: 'Sports',
-    },
+  await prisma.category.createMany({
+    data: baseCategories,
   })
 
-  await prisma.category.upsert({
-    where: { id: 2 },
-    update: { name: 'Food' },
-    create: {
-      id: 2,
-      name: 'Food',
-    },
-  })
-
-  await prisma.category.upsert({
-    where: { id: 3 },
-    update: { name: 'Trips' },
-    create: {
-      id: 3,
-      name: 'Trips',
-    },
-  })
-
-  await prisma.category.upsert({
-    where: { id: 4 },
-    update: { name: 'Leisure' },
-    create: {
-      id: 4,
-      name: 'Leisure',
-    },
-  })
-
-  await prisma.category.upsert({
-    where: { id: 5 },
-    update: { name: 'Bills' },
-    create: {
-      id: 5,
-      name: 'Bills',
-    },
-  })
-
-  await prisma.user.upsert({
-    where: { id: 1 },
-    update: { email: 'mprietopereira@gmail.com', name: 'Mario' },
-    create: {
-      id: 1,
+  await prisma.user.create({
+    data: {
       email: 'mprietopereira@gmail.com',
       name: 'Mario',
     },
+  })
+
+  const categories = await prisma.category.findMany({
+    orderBy: {
+      name: 'asc',
+    },
+  })
+
+  const user = await prisma.user.findFirstOrThrow()
+
+  await prisma.expense.createMany({
+    data: [
+      {
+        title: 'Partido pádel',
+        categoryId: categories[5].id,
+        userId: user.id,
+        amount: 500,
+        date: new Date('2024-03-16'),
+      },
+      {
+        title: 'Factura luz',
+        categoryId: categories[0].id,
+        userId: user.id,
+        amount: 3000,
+        date: new Date('2024-06-02'),
+      },
+      {
+        title: 'Viajecito',
+        categoryId: categories[6].id,
+        userId: user.id,
+        amount: 10000,
+        date: new Date('2024-06-15'),
+      },
+      {
+        title: 'Plan casa Beita',
+        categoryId: categories[3].id,
+        userId: user.id,
+        amount: 2500,
+        date: new Date('2024-11-16'),
+      },
+      {
+        title: 'Clases particulares de pádel',
+        categoryId: categories[5].id,
+        userId: user.id,
+        amount: 13000,
+        date: new Date('2024-12-11'),
+      },
+      {
+        title: 'Factura gas',
+        categoryId: categories[0].id,
+        userId: user.id,
+        amount: 30,
+        date: new Date('2024-12-15'),
+      },
+    ],
   })
 }
 main()

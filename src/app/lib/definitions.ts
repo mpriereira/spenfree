@@ -1,9 +1,4 @@
-import { Expense } from '@prisma/client'
-
-export type Category = {
-  id: number
-  name: string
-}
+import { Expense, Category, User } from '@prisma/client'
 
 export type CategoryChartData = {
   color: string
@@ -12,6 +7,6 @@ export type CategoryChartData = {
 }
 
 export type ExtendedExpense = Expense & {
-  category: { name: string }
-  user: { name: string | null }
+  category: Pick<Category, 'name' | 'color' | 'type'>
+  user: Pick<User, 'name'>
 }

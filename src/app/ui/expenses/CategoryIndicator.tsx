@@ -1,21 +1,17 @@
-import { ColorSwatch } from '@mantine/core'
-import { getCategoryColor } from '@/app/lib/utils'
-import styles from './CategoryIndicator.module.css'
+import { Badge } from '@mantine/core'
 
 type CategoryIndicatorProps = {
-  category: {
-    id: number
-    name: string
-  }
+  categoryName?: string
+  categoryColor?: string
 }
 
 export const CategoryIndicator = ({
-  category: { id: categoryId, name: categoryName },
+  categoryName = '',
+  categoryColor = '#ccc',
 }: CategoryIndicatorProps) => {
   return (
-    <div className={styles.category}>
-      <ColorSwatch size={15} color={getCategoryColor(categoryId)} />
+    <Badge color={categoryColor} variant="light" size="md">
       {categoryName}
-    </div>
+    </Badge>
   )
 }

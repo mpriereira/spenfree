@@ -75,7 +75,7 @@ export const ExpenseForm = ({ expense }: ExpenseFormProps) => {
         type="number"
         name="amount"
         placeholder="Amount"
-        defaultValue={expense?.amount}
+        defaultValue={expense?.amount ? expense.amount / 100 : undefined}
       />
       <div className={styles.form__footer}>
         <Button type="submit">Save</Button>

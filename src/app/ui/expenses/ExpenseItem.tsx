@@ -17,10 +17,16 @@ export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
         {expense.date.toLocaleDateString()}
       </Table.Td>
       <Table.Td>{expense.title}</Table.Td>
-      <Table.Td className={styles.amount}>-{expense.amount}€</Table.Td>
+      <Table.Td
+        className={styles[`amount__${expense.category.type.toLowerCase()}`]}
+      >
+        {expense.category.type === 'EXPENSE' ? '-' : ''}
+        {expense.amount / 100}€
+      </Table.Td>
       <Table.Td>
         <CategoryIndicator
-          category={{ name: expense.category.name, id: expense.categoryId }}
+          categoryName={expense.category.name}
+          categoryColor={expense.category.color}
         />
       </Table.Td>
       <Table.Td className={styles.actions}>

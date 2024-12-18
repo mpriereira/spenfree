@@ -3,34 +3,36 @@
 import { revalidatePath } from 'next/cache'
 import prisma from '@/lib/prisma'
 
+// TODO (manage authentication)
+const userId = 'b043cd56-4aec-4a6e-9b49-b6e96fbae3f4'
+const userEmail = 'mprietopereira@gmail.com'
+
 export async function getCategories() {
   return prisma.category.findMany()
 }
 
-export async function getExpense(id: number) {
-  return (
-    prisma.expense.findUnique({
-      where: { id },
-    }) ?? undefined
-  )
+export async function getExpense(id: string) {
+  return prisma.expense.findUnique({
+    where: { id },
+  })
 }
 
 export async function getUserExpenses() {
   return prisma.expense.findMany({
-    where: { userId: 1 },
-    orderBy: [{ date: 'desc' }, { id: 'desc' }],
+    where: { userId },
+    orderBy: { date: 'desc' },
     include: {
       user: {
         select: { name: true },
       },
       category: {
-        select: { name: true },
+        select: { name: true, color: true, type: true },
       },
     },
   })
 }
 
-export async function saveExpense(formData: FormData, id?: number) {
+export async function saveExpense(formData: FormData, id?: string) {
   id
     ? await editExpense(formData, id).then()
     : await createExpense(formData).then()
@@ -41,24 +43,24 @@ async function createExpense(formData: FormData) {
     data: {
       title: formData.get('title') as string,
       date: new Date(formData.get('date') as string).toISOString(),
-      amount: Number(formData.get('amount') as string),
+      amount: Number(formData.get('amount') as string) * 100,
       category: {
         connect: {
-          id: Number(formData.get('category') as string),
+          id: formData.get('category') as string,
         },
       },
       user: {
         connect: {
-          id: 1, // TODO
+          email: userEmail,
         },
       },
     },
   })
 
-  revalidatePath('/')
+  revalidatePath('/expenses')
 }
 
-async function editExpense(formData: FormData, id: number) {
+async function editExpense(formData: FormData, id: string) {
   await prisma.expense.update({
     where: {
       id,
@@ -66,24 +68,24 @@ async function editExpense(formData: FormData, id: number) {
     data: {
       title: formData.get('title') as string,
       date: new Date(formData.get('date') as string).toISOString(),
-      amount: Number(formData.get('amount') as string),
+      amount: Number(formData.get('amount') as string) * 100,
       category: {
         connect: {
-          id: Number(formData.get('category') as string),
+          id: formData.get('category') as string,
         },
       },
     },
   })
 
-  revalidatePath('/')
+  revalidatePath('/expenses')
 }
 
-export async function deleteExpense(id: number) {
+export async function deleteExpense(id: string) {
   await prisma.expense.delete({
     where: {
       id,
     },
   })
 
-  revalidatePath('/')
+  revalidatePath('/expenses')
 }

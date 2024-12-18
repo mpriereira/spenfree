@@ -7,7 +7,11 @@ import { deleteExpense } from '@/app/lib/actions'
 import { DeleteIcon } from '@/app/ui/common/Icons'
 import styles from './DeleteExpense.module.css'
 
-export const DeleteExpense = ({ expenseId }: { expenseId: number }) => {
+type DeleteExpenseProps = {
+  expenseId: string
+}
+
+export const DeleteExpense = ({ expenseId }: DeleteExpenseProps) => {
   const [opened, { open, close }] = useDisclosure(false)
 
   const handleDeletion = async () => {

@@ -1,7 +1,6 @@
 import { ReactNode, Suspense } from 'react'
 import { getUserExpenses } from '@/app/lib/actions'
 import { CategoryChartData } from '@/app/lib/definitions'
-import { getCategoryColor } from '@/app/lib/utils'
 import { CategoriesChart } from '@/app/ui/charts/CategoriesChart'
 import { ExpenseSkeleton, PieChartSkeleton } from '@/app/ui/common/Skeletons'
 import { ExpensesList } from '@/app/ui/expenses/ExpensesList'
@@ -25,15 +24,15 @@ export default async function ExpensesLayout({
   const expenses = await getUserExpenses()
 
   const chartData = Object.values(
-    expenses.reduce<Record<number, CategoryChartData>>((acc, item) => {
+    expenses.reduce<Record<string, CategoryChartData>>((acc, item) => {
       if (!acc[item.categoryId]) {
         acc[item.categoryId] = {
-          color: getCategoryColor(item.categoryId),
+          color: item.category.color,
           value: 0,
           name: item.category.name,
         }
       }
-      acc[item.categoryId].value += item.amount
+      acc[item.categoryId].value += item.amount / 100
       return acc
     }, {}),
   )
