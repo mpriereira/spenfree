@@ -4,7 +4,6 @@ import { revalidatePath } from 'next/cache'
 import prisma from '@/lib/prisma'
 
 // TODO (manage authentication)
-const userId = 'b043cd56-4aec-4a6e-9b49-b6e96fbae3f4'
 const userEmail = 'mprietopereira@gmail.com'
 
 export async function getCategories() {
@@ -19,7 +18,7 @@ export async function getExpense(id: string) {
 
 export async function getUserExpenses() {
   return prisma.expense.findMany({
-    where: { userId },
+    // where: { userId: 'b043cd56-4aec-4a6e-9b49-b6e96fbae3f4' },
     orderBy: { date: 'desc' },
     include: {
       user: {
