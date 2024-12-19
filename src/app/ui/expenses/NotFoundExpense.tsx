@@ -1,13 +1,14 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Button, Modal } from '@mantine/core'
 import { useDelayedDisclosure } from '@/app/lib/hooks'
 
 export const NotFoundExpense = () => {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [opened, { close }] = useDelayedDisclosure(() =>
-    router.push('/expenses'),
+    router.push(`/expenses?${searchParams.toString()}`),
   )
 
   return (

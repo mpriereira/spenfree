@@ -2,12 +2,21 @@
 
 import { Modal } from '@mantine/core'
 import { ExpenseForm } from '@/app/ui/expenses/ExpenseForm'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useDelayedDisclosure } from '@/app/lib/hooks'
 
 export const CreateExpense = () => {
-  const router = useRouter()
-  const [opened, { close }] = useDelayedDisclosure(() => router.back())
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const { replace } = useRouter()
+
+  const handleClose = () => {
+    const params = new URLSearchParams(searchParams)
+    params.delete('create')
+    replace(`${pathname}?${params.toString()}`)
+  }
+
+  const [opened, { close }] = useDelayedDisclosure(handleClose)
 
   return (
     <>

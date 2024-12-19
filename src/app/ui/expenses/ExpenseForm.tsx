@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'toaster-ts'
 import { Button } from '@mantine/core'
@@ -15,6 +15,7 @@ type ExpenseFormProps = {
 
 export const ExpenseForm = ({ expense }: ExpenseFormProps) => {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const categoryId = expense?.categoryId.toString()
   const [selectedCategory, setSelectedCategory] = useState(categoryId)
   const [hasCategoryError, setHasCategoryError] = useState(false)
@@ -37,7 +38,9 @@ export const ExpenseForm = ({ expense }: ExpenseFormProps) => {
     }
     formData.set('category', selectedCategory)
     toast.promise(
-      saveExpense(formData, expense?.id).then(() => router.push('/expenses')),
+      saveExpense(formData, expense?.id).then(() =>
+        router.push(`/expenses?${searchParams.toString()}`),
+      ),
       {
         loading: 'Saving expense...',
         success: () => 'Expense saved',

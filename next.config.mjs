@@ -4,7 +4,7 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: '/expenses',
+        destination: '/expenses?chart=expense',
         permanent: true,
       },
     ]

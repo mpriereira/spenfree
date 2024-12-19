@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { Button, Table } from '@mantine/core'
 import { ExtendedExpense } from '@/app/lib/definitions'
 import { CategoryIndicator } from '@/app/ui/expenses/CategoryIndicator'
@@ -11,6 +12,8 @@ export type ExpenseItemProps = {
 }
 
 export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
+  const searchParams = useSearchParams()
+
   return (
     <Table.Tr key={expense.id}>
       <Table.Td className={styles.date}>
@@ -30,7 +33,10 @@ export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
         />
       </Table.Td>
       <Table.Td className={styles.actions}>
-        <Link href={`/expenses/${expense.id}`} passHref>
+        <Link
+          href={`/expenses/${expense.id}?${searchParams.toString()}`}
+          passHref
+        >
           <Button variant="light" radius="lg">
             <PencilIcon />
           </Button>

@@ -12,9 +12,7 @@ type UpdateExpenseProps = {
 
 export const UpdateExpense = ({ expense }: UpdateExpenseProps) => {
   const router = useRouter()
-  const [opened, { close }] = useDelayedDisclosure(() =>
-    router.push('/expenses'),
-  )
+  const [opened, { close }] = useDelayedDisclosure(() => router.back())
 
   return (
     <>

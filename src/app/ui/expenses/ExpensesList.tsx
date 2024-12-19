@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { Button, ScrollArea, Table } from '@mantine/core'
 import { ExtendedExpense } from '@/app/lib/definitions'
 import { ExpenseItem } from '@/app/ui/expenses/ExpenseItem'
@@ -11,6 +11,16 @@ type ExpensesListProps = {
 }
 
 export const ExpensesList = ({ expenses }: ExpensesListProps) => {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const { replace } = useRouter()
+
+  const handleCreateExpense = () => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('create', 'true')
+    replace(`${pathname}?${params.toString()}`)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.list}>
@@ -38,9 +48,7 @@ export const ExpensesList = ({ expenses }: ExpensesListProps) => {
           </Table>
         </ScrollArea>
       </div>
-      <Link href="/?create=true" passHref>
-        <Button>Add expense</Button>
-      </Link>
+      <Button onClick={handleCreateExpense}>Add expense</Button>
     </div>
   )
 }
