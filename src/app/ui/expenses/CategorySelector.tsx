@@ -1,8 +1,17 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Combobox, Input, InputBase, Loader, useCombobox } from '@mantine/core'
-import { Category } from '@prisma/client'
+import {
+  Combobox,
+  Input,
+  InputBase,
+  Loader,
+  SegmentedControl,
+  useCombobox,
+} from '@mantine/core'
+import { Category, CategoryType } from '@prisma/client'
 import { getCategories } from '@/app/lib/actions'
 import { CategoryIndicator } from '@/app/ui/expenses/CategoryIndicator'
+import { capitalize } from '@/app/lib/utils'
+import styles from './CategorySelector.module.css'
 
 type CategorySelectorProps = {
   defaultCategory?: string
@@ -19,6 +28,12 @@ export const CategorySelector = ({
   const [value, setValue] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<Category[]>([])
+  const [selectedType, setSelectedType] = useState('EXPENSE')
+
+  const categoryTypes = Object.values(CategoryType).map((type) => ({
+    value: CategoryType[type],
+    label: capitalize(type),
+  }))
 
   const combobox = useCombobox({
     onDropdownClose: () => {
@@ -32,18 +47,22 @@ export const CategorySelector = ({
     },
   })
 
-  const options = data
-    .filter((category) =>
-      category.name.toLowerCase().includes(search.toLowerCase().trim()),
-    )
-    .map((category) => (
-      <Combobox.Option value={category.id.toString()} key={category.id}>
-        <CategoryIndicator
-          categoryName={category.name}
-          categoryColor={category.color}
-        />
-      </Combobox.Option>
-    ))
+  const options = useMemo(() => {
+    return data
+      .filter(
+        (category) =>
+          category.type === selectedType &&
+          category.name.toLowerCase().includes(search.toLowerCase().trim()),
+      )
+      .map((category) => (
+        <Combobox.Option value={category.id.toString()} key={category.id}>
+          <CategoryIndicator
+            categoryName={category.name}
+            categoryColor={category.color}
+          />
+        </Combobox.Option>
+      ))
+  }, [data, search, selectedType])
 
   const selectedCategory = useMemo(() => {
     if (!value) return undefined
@@ -70,6 +89,11 @@ export const CategorySelector = ({
       })
     }
   }, [data, loading, combobox, defaultCategory])
+
+  const handleTypeChange = (value: string) => {
+    setSelectedType(value)
+    combobox.focusSearchInput()
+  }
 
   return (
     <Combobox
@@ -103,6 +127,14 @@ export const CategorySelector = ({
       </Combobox.Target>
 
       <Combobox.Dropdown>
+        <SegmentedControl
+          fullWidth
+          size={'xs'}
+          data={categoryTypes}
+          value={selectedType}
+          onChange={handleTypeChange}
+          className={styles.typeSelector}
+        />
         <Combobox.Search
           value={search}
           onChange={(event) => setSearch(event.currentTarget.value)}
