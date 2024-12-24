@@ -6,6 +6,22 @@ type ChartProps = {
 }
 
 export const CategoriesChart = ({ data }: ChartProps) => {
+  if (data.length === 0) {
+    return (
+      <div
+        style={{
+          height: 280,
+          width: 280,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        No data available
+      </div>
+    )
+  }
+
   return (
     <DonutChart
       size={200}

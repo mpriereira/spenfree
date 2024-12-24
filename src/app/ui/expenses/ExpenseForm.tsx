@@ -38,9 +38,11 @@ export const ExpenseForm = ({ expense }: ExpenseFormProps) => {
     }
     formData.set('category', selectedCategory)
     toast.promise(
-      saveExpense(formData, expense?.id).then(() =>
-        router.push(`/expenses?${searchParams.toString()}`),
-      ),
+      saveExpense(formData, expense?.id).then(() => {
+        const params = new URLSearchParams(searchParams)
+        params.delete('create')
+        router.push(`/expenses?${params.toString()}`)
+      }),
       {
         loading: 'Saving expense...',
         success: () => 'Expense saved',

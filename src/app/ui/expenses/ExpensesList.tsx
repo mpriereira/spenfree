@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Button, ScrollArea, Table } from '@mantine/core'
+import { Button, ScrollArea, Table, TableCaption } from '@mantine/core'
 import { ExtendedExpense } from '@/app/lib/definitions'
 import { ExpenseItem } from '@/app/ui/expenses/ExpenseItem'
 import styles from './ExpensesList.module.css'
@@ -40,11 +40,17 @@ export const ExpensesList = ({ expenses }: ExpensesListProps) => {
                 <Table.Th></Table.Th>
               </Table.Tr>
             </Table.Thead>
-            <Table.Tbody>
-              {expenses.map((expense) => (
-                <ExpenseItem key={expense.id} expense={expense} />
-              ))}
-            </Table.Tbody>
+            {expenses.length > 0 ? (
+              <Table.Tbody>
+                {expenses.map((expense) => (
+                  <ExpenseItem key={expense.id} expense={expense} />
+                ))}
+              </Table.Tbody>
+            ) : (
+              <TableCaption style={{ minHeight: 200 }}>
+                <span>No data available</span>
+              </TableCaption>
+            )}
           </Table>
         </ScrollArea>
       </div>

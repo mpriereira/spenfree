@@ -2,14 +2,22 @@ import { getUserExpenses } from '@/app/lib/actions'
 import { CategoryChartData } from '@/app/lib/definitions'
 import { CategoriesChart } from '@/app/ui/charts/CategoriesChart'
 import { ChartTypeSelector } from '@/app/ui/expenses/ChartTypeSelector'
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import { capitalize } from '@/app/lib/utils'
 import styles from './page.module.css'
+
+dayjs.extend(customParseFormat)
 
 export default async function Page({
   searchParams,
 }: {
-  searchParams: { chart: 'expense' | 'income' }
+  searchParams: { chart: 'expense' | 'income'; period: string }
 }) {
-  const expenses = await getUserExpenses()
+  const period = searchParams.period
+    ? dayjs(capitalize(searchParams.period), 'MMM-YY')
+    : dayjs()
+  const expenses = await getUserExpenses(period)
   const chartType = searchParams.chart.toUpperCase()
 
   const chartData = Object.values(

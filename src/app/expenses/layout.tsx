@@ -1,7 +1,5 @@
 import { ReactNode, Suspense } from 'react'
-import { getUserExpenses } from '@/app/lib/actions'
 import { ExpenseSkeleton, PieChartSkeleton } from '@/app/ui/common/Skeletons'
-import { ExpensesList } from '@/app/ui/expenses/ExpensesList'
 import styles from './page.module.css'
 
 const ExpensesListSkeleton = () => {
@@ -14,22 +12,23 @@ const ExpensesListSkeleton = () => {
   )
 }
 
-export default async function ExpensesLayout({
+export default function ExpensesLayout({
   children,
   chart,
+  navigator,
+  table,
 }: {
   children: ReactNode
   chart: ReactNode
+  navigator: ReactNode
+  table: ReactNode
 }) {
-  const expenses = await getUserExpenses()
-
   return (
     <main className={styles.main}>
       <section className={styles.content}>
         <div className={styles.list}>
-          <Suspense fallback={<ExpensesListSkeleton />}>
-            <ExpensesList expenses={expenses} />
-          </Suspense>
+          {navigator}
+          <Suspense fallback={<ExpensesListSkeleton />}>{table}</Suspense>
         </div>
         <Suspense fallback={<PieChartSkeleton />}>{chart}</Suspense>
       </section>

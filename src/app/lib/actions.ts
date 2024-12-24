@@ -1,6 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import dayjs from 'dayjs'
 import prisma from '@/lib/prisma'
 
 // TODO (manage authentication)
@@ -16,9 +17,15 @@ export async function getExpense(id: string) {
   })
 }
 
-export async function getUserExpenses() {
+export async function getUserExpenses(period: dayjs.Dayjs) {
   return prisma.expense.findMany({
-    // where: { userId: 'b043cd56-4aec-4a6e-9b49-b6e96fbae3f4' },
+    where: {
+      // userId: 'b043cd56-4aec-4a6e-9b49-b6e96fbae3f4'
+      date: {
+        gte: period.startOf('month').toDate(),
+        lte: period.endOf('month').toDate(),
+      },
+    },
     orderBy: { date: 'desc' },
     include: {
       user: {
