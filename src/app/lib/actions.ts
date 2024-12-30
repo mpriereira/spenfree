@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 import prisma from '@/lib/prisma'
 
 // TODO (manage authentication)
-const userEmail = 'mprietopereira@gmail.com'
+const userEmail = 'mario@email.com'
 
 export async function getCategories() {
   return prisma.category.findMany()
