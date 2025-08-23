@@ -49,6 +49,7 @@ async function main() {
     data: {
       email: 'mario@email.com',
       name: 'Mario',
+      authId: '123',
     },
   })
 

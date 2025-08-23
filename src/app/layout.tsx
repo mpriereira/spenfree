@@ -8,6 +8,7 @@ import {
 import { theme } from '@/app/lib/theme'
 import { Header } from '@/app/ui/common/Header'
 import { Footer } from '@/app/ui/common/Footer'
+import { auth } from '@/app/auth'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -15,11 +16,13 @@ export const metadata: Metadata = {
   description: 'Keep track of your daily expenses easily',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  await auth()
+
   return (
     <html lang="en" {...mantineHtmlProps}>
       <head>

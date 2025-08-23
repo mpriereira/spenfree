@@ -1,9 +1,35 @@
+import { Avatar, Button, Group } from '@mantine/core'
+import { auth, signOut } from '@/app/auth'
 import styles from './Header.module.css'
 
-export const Header = () => {
+export const Header = async () => {
+  const session = await auth()
+
   return (
     <header className={styles.header}>
-      <h2>Spenfree</h2>
+      <Group justify="space-between" w="100%" px="md">
+        <h2>Spenfree</h2>
+        {session && (
+          <Group>
+            <Group gap="xs">
+              {session.user?.image && 
+                <Avatar src={session.user?.image} radius="xl" size="sm" />
+              }
+              <span>Hello, {session.user?.name}</span>
+            </Group>
+            <form
+              action={async () => {
+                'use server'
+                await signOut()
+              }}
+            >
+              <Button type="submit" variant="subtle">
+                Sign out
+              </Button>
+            </form>
+          </Group>
+        )}
+      </Group>
     </header>
   )
 }

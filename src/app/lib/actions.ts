@@ -1,11 +1,18 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 import dayjs from 'dayjs'
 import prisma from '@/lib/prisma'
+import { auth } from '@/app/auth'
 
-// TODO (manage authentication)
-const userEmail = 'mario@email.com'
+async function getAuthenticatedUser() {
+  const session = await auth()
+  if (!session?.user?.email) {
+    redirect('/auth/signin')
+  }
+  return session.user
+}
 
 export async function getCategories() {
   return prisma.category.findMany()
@@ -18,9 +25,11 @@ export async function getExpense(id: string) {
 }
 
 export async function getUserExpenses(period: dayjs.Dayjs) {
+  const user = await getAuthenticatedUser()
+
   return prisma.expense.findMany({
     where: {
-      // userId: 'b043cd56-4aec-4a6e-9b49-b6e96fbae3f4'
+      userId: user.id,
       date: {
         gte: period.startOf('month').toDate(),
         lte: period.endOf('month').toDate(),
@@ -45,6 +54,8 @@ export async function saveExpense(formData: FormData, id?: string) {
 }
 
 async function createExpense(formData: FormData) {
+  const user = await getAuthenticatedUser()
+
   await prisma.expense.create({
     data: {
       title: formData.get('title') as string,
@@ -57,7 +68,7 @@ async function createExpense(formData: FormData) {
       },
       user: {
         connect: {
-          email: userEmail,
+          id: user.id,
         },
       },
     },
@@ -67,6 +78,17 @@ async function createExpense(formData: FormData) {
 }
 
 async function editExpense(formData: FormData, id: string) {
+  const user = await getAuthenticatedUser()
+
+  const expense = await prisma.expense.findUnique({
+    where: { id },
+    select: { userId: true },
+  })
+
+  if (!expense || expense.userId !== user.id) {
+    throw new Error('Unauthorized')
+  }
+
   await prisma.expense.update({
     where: {
       id,
@@ -87,6 +109,17 @@ async function editExpense(formData: FormData, id: string) {
 }
 
 export async function deleteExpense(id: string) {
+  const user = await getAuthenticatedUser()
+
+  const expense = await prisma.expense.findUnique({
+    where: { id },
+    select: { userId: true },
+  })
+
+  if (!expense || expense.userId !== user.id) {
+    throw new Error('Unauthorized')
+  }
+
   await prisma.expense.delete({
     where: {
       id,
