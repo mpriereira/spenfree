@@ -3,9 +3,9 @@ import styles from './Footer.module.css'
 export const Footer = () => {
   return (
     <footer className={styles.footer}>
-      © 2025 Spenfree. Made with ❤️ by{' '}
+      Made to learn and play around by{' '}
       <a href="https://github.com/mpriereira" target="_blank">
-        Mario
+        mpriereira
       </a>
     </footer>
   )

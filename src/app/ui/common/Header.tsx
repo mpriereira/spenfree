@@ -5,6 +5,11 @@ import styles from './Header.module.css'
 export const Header = async () => {
   const session = await auth()
 
+  async function logout() {
+    'use server'
+    await signOut()
+  }
+
   return (
     <header className={styles.header}>
       <Group justify="space-between" w="100%" px="md">
@@ -18,12 +23,9 @@ export const Header = async () => {
               <span>Hello, {session.user?.name}</span>
             </Group>
             <form
-              action={async () => {
-                'use server'
-                await signOut()
-              }}
+              action={logout}
             >
-              <Button type="submit" variant="subtle">
+              <Button type="submit" variant="subtle" className={styles.button}>
                 Sign out
               </Button>
             </form>

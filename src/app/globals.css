@@ -8,7 +8,6 @@
   --bg-color: hsl(0, 0%, 98%);
   --text-color: hsl(0, 0%, 10%);
   --card-bg-color: hsl(0, 0%, 95%);
-  --button-bg-color: hsl(0, 0%, 98%);
   --button-color: hsl(0, 0%, 10%);
   --button-hover-color: hsl(0, 0%, 92%);
   --shadow-color: hsl(0, 0%, 80%);
@@ -49,9 +48,6 @@ select {
   padding: 6px;
   border: 1px solid #666;
   border-radius: 5px;
-}
-
-button, a, input, select {
   font: inherit;
   font-size: .85rem;
 }

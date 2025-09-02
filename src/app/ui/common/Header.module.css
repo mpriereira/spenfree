@@ -1,7 +1,7 @@
 .header {
   display: flex;
   justify-content: center;
-  padding-block: 10px;
+  padding-block: 15px;
   background-color: var(--card-bg-color);
   border-radius: 5px;
   box-shadow: 0 0 10px var(--shadow-color);
@@ -11,4 +11,14 @@
 
 .header > div {
   max-width: var(--max-width);
+}
+
+.button {
+  padding-bottom: 2px;
+
+  &:hover {
+    background-color: unset;
+    color: var(--mantine-color-gray-9); 
+    text-decoration: underline;
+  }
 }
