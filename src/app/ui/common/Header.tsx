@@ -14,7 +14,7 @@ export const Header = async () => {
     <header className={styles.header}>
       <Group justify="space-between" w="100%" px="md">
         <h2>Spenfree</h2>
-        {session && (
+        {session?.user && (
           <Group>
             <Group gap="xs">
               {session.user?.image && 
