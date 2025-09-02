@@ -16,25 +16,6 @@
   --green-color: hsl(138, 51%, 63%);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --max-width: 1150px;
-    --bg-color: hsl(0, 0%, 10%);
-    --text-color: hsl(0, 0%, 98%);
-    --card-bg-color: hsl(0, 0%, 15%);
-    --button-bg-color: hsl(0, 0%, 10%);
-    --button-color: hsl(0, 0%, 98%);
-    --button-hover-color: hsl(0, 0%, 20%);
-    --shadow-color: hsl(0, 0%, 20%);
-    --red-color: hsl(357, 73%, 50%);
-    --green-color: hsl(138, 51%, 63%);
-  }
-
-  .icon {
-    filter: invert(1);
-  }
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
