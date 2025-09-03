@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/next'
 import { GeistSans } from 'geist/font/sans'
 import {
   ColorSchemeScript,
@@ -9,6 +10,7 @@ import { theme } from '@/app/lib/theme'
 import { Header } from '@/app/ui/common/Header'
 import { Footer } from '@/app/ui/common/Footer'
 import { auth } from '@/app/auth'
+
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -41,6 +43,7 @@ export default async function RootLayout({
             data-rich-colors="true"
           />
         </MantineProvider>
+        <Analytics />
       </body>
     </html>
   )
